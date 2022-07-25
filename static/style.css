@@ -27,7 +27,7 @@ body {
 }
 .header-text {
     font-weight: 900;
-    font-size: 2.5rem;
+    font-size: 4rem;
 }
 .header-img-div {
     width: 110%;
@@ -91,5 +91,8 @@ td {
     }
     .header-img-div {
         margin-bottom: 5rem;
+    }
+    .header-text {
+        font-size: 3rem;
     }
 }
