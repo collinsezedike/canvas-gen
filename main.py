@@ -37,7 +37,7 @@ app.config["SECRET_KEY"] = "asecretkey"
 
 app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024 * 10
 app.config["UPLOAD_EXTENSIONS"] = [".jpg"]
-app.config["UPLOAD_PATH"] = "static\\upload"
+app.config["UPLOAD_PATH"] = "static/upload"
 Bootstrap5(app)
 
 
@@ -65,7 +65,7 @@ def recieve_image():
                 else:
                     filename = f"image{file_ext}"
                     image.save(os.path.join(app.config["UPLOAD_PATH"], filename))
-                    img_file = f"{app.config['UPLOAD_PATH']}\\image.jpg"
+                    img_file = f"{app.config['UPLOAD_PATH']}/image.jpg"
                     session["colors"] = extract_colors(img_file)
                     return redirect(url_for("display_palette"))
             else:
