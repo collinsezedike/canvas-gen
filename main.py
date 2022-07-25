@@ -64,13 +64,7 @@ def recieve_image():
                     flash("Image must be a .jpg type")
                 else:
                     filename = f"image{file_ext}"
-                    try:
-                        image.save(os.path.join(app.config["UPLOAD_PATH"], filename))
-                    except FileNotFoundError:
-                        os.chdir(
-                            ".\\Day 91\\Professional Project - Image Colour Palette Generator"
-                        )
-                        image.save(os.path.join(app.config["UPLOAD_PATH"], filename))
+                    image.save(os.path.join(app.config["UPLOAD_PATH"], filename))
                     img_file = f"{app.config['UPLOAD_PATH']}\\image.jpg"
                     session["colors"] = extract_colors(img_file)
                     return redirect(url_for("display_palette"))
