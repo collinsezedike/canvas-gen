@@ -33,11 +33,11 @@ def extract_colors(img_file, num_colors=10):
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "asecretkey"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024 * 10
 app.config["UPLOAD_EXTENSIONS"] = [".jpg"]
-app.config["UPLOAD_PATH"] = "static/upload"
+app.config["UPLOAD_PATH"] = os.getenv("UPLOAD_PATH")
 Bootstrap5(app)
 
 
