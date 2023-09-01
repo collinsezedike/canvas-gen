@@ -4,6 +4,6 @@ flask_bootstrap==3.3.7.1
 gunicorn==20.1.0
 numpy==1.21.6
 opencv-python-headless==4.5.5.64
-Pillow==10.0.0
+Pillow==9.5.0
 scikit_learn==1.0.1
 Werkzeug==2.0.3
