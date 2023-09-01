@@ -1,19 +1,24 @@
-from flask import Flask, flash, redirect, render_template, request, url_for, session
-from flask_bootstrap import Bootstrap5
 import os
+import cv2
+
+import numpy as np
+
+from PIL import Image
+from collections import Counter
+from sklearn.cluster import KMeans
 from werkzeug.utils import secure_filename
 
-from sklearn.cluster import KMeans
-import cv2
-from collections import Counter
+from flask_bootstrap import Bootstrap5
+from flask import Flask, flash, redirect, render_template, request, url_for, session
 
 
-def extract_colors(img_file, num_colors=10):
+
+
+def extract_colors(img_array, num_colors=10):
     def RGB2HEX(color):
         return f"#{int(color[0]):02x}{int(color[1]):02x}{int(color[2]):02x}"
 
-    image = cv2.imread(img_file)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)
     img_width = image.shape[0]
     img_height = image.shape[1]
 
@@ -34,10 +39,8 @@ def extract_colors(img_file, num_colors=10):
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-
 app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024 * 10
 app.config["UPLOAD_EXTENSIONS"] = [".jpg"]
-app.config["UPLOAD_PATH"] = os.getenv("UPLOAD_PATH")
 Bootstrap5(app)
 
 
@@ -63,10 +66,9 @@ def recieve_image():
                 if file_ext not in app.config["UPLOAD_EXTENSIONS"]:
                     flash("Image must be a .jpg type")
                 else:
-                    filename = f"image{file_ext}"
-                    image.save(os.path.join(app.config["UPLOAD_PATH"], filename))
-                    img_file = f"{app.config['UPLOAD_PATH']}/image.jpg"
-                    session["colors"] = extract_colors(img_file)
+                    pillow_image = Image.open(image)
+                    image_array = np.array(pillow_image)
+                    session["colors"] = extract_colors(image_array)
                     return redirect(url_for("display_palette"))
             else:
                 flash("Invalid file")
