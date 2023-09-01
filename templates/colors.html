@@ -6,13 +6,13 @@
 <div class="container">
     <div class="row header-div">
         <div class="col-lg-6 header-img-div">
-            <img src="{{ url_for('static', filename='upload/image.jpg') }}" alt="Uploaded image" class="header-img">
+            <img src="data:image/jpeg;base64,{{ image }}" alt="Uploaded image" class="header-img">
         </div>
         <div class="col-lg-6">
             <h2 class="header-text">Colors</h2>   
             <table class="table table-borderless table-sm color-table">
                 <tbody>
-                {% for color in session["colors"]: %}
+                {% for color in colors: %}
                   <tr class="color-row">
                     <td class="color-box" style="background-color: {{ color }};"></td>
                     <td class="color-name">{{ color.upper() }}</td>
